@@ -77,13 +77,13 @@
 
       <el-main>
         <router-view/>
-        <!--        <el-table style="max-height: calc(100vh - 200px);overflow: auto" :data="tableData">-->
-        <!--          <el-table-column prop="date" label="Date" width="140">-->
-        <!--          </el-table-column>-->
-        <!--          <el-table-column prop="name" label="Name" width="120">-->
-        <!--          </el-table-column>-->
-        <!--          <el-table-column prop="address" label="Address"></el-table-column>-->
-        <!--        </el-table>-->
+<!--        <el-table style="max-height: calc(100vh - 200px);overflow: auto" :data="tableData">-->
+<!--          <el-table-column prop="date" label="Date" width="140">-->
+<!--          </el-table-column>-->
+<!--          <el-table-column prop="name" label="Name" width="120">-->
+<!--          </el-table-column>-->
+<!--          <el-table-column prop="address" label="Address"></el-table-column>-->
+<!--        </el-table>-->
       </el-main>
     </el-container>
   </el-container>
@@ -127,4 +127,3 @@ export default defineComponent({
   color: var(--el-text-color-primary);
 }
 </style>
-
