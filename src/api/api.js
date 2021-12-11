@@ -1,9 +1,5 @@
-const axios = require('axios');
+import axios from "axios";
 
-const baseAxios =  axios.create({
-    baseURL: 'http://127.0.0.1:8080'
-})
-
-export const getData = baseAxios.get("/aaa")
-
-
+export function getSubList() {
+    return axios.get("/sub/list")
+}

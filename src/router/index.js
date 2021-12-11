@@ -9,7 +9,7 @@ const routes = [
     {
         path: '/sub',
         name: 'Subjects',
-        component: () => import('../views/Subjects')
+        component: () => import('../views/sub/Subjects')
     }
 ]
 
