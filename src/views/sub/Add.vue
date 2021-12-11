@@ -10,7 +10,7 @@
         <el-select v-model="form.parentId" placeholder="请选择">
           <el-option
               v-for="item in sublist"
-              :key="item.value"
+              :key="item.id"
               :label="item.label"
               :value="item.value">
           </el-option>
@@ -40,7 +40,8 @@ export default {
       dialogFormVisible: false,
       form: {
         subName:'',
-        isEnable:''
+        isEnable:'0',
+        direction:'1',
       },
     };
   }

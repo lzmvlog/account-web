@@ -3,30 +3,27 @@
   <div class="subject">
     <el-table
         :data="tableData"
+        border
         style="width: 100%"
         max-height="89vh">
       <el-table-column
           fixed
           prop="id"
-          label="排序"
-          width="150">
+          label="排序">
       </el-table-column>
       <el-table-column
           prop="subName"
-          label="科目名称"
-          width="120">
+          label="科目名称">
       </el-table-column>
       <el-table-column
           prop="direction"
           label="借贷方向"
-          :formatter="direction"
-          width="120">
+          :formatter="direction">
       </el-table-column>
       <el-table-column
           prop="isEnable"
           label="是否启用"
-          :formatter="isEnable"
-          width="120">
+          :formatter="isEnable">
       </el-table-column>
       <el-table-column
           fixed="right"
@@ -55,7 +52,8 @@ export default {
   },
   data() {
     return {
-      tableData: []
+      tableData: [],
+      meg: false
     }
   },
   created() {
@@ -67,7 +65,10 @@ export default {
     },
     list() {
       getSubList().then((response) => {
-        console.log(response.data.data.subject)
+        console.log(response.data)
+        if (response.code == 500){
+          this.$message.error(response.data.msg);
+        }
         this.tableData = response.data.data.subject
       })
     },
