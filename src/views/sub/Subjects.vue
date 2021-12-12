@@ -40,6 +40,13 @@
       </el-table-column>
     </el-table>
   </div>
+  <div class="page">
+    <el-pagination
+        background
+        layout="prev, pager, next"
+        :total="1000">
+    </el-pagination>
+  </div>
 </template>
 
 <script>
@@ -69,6 +76,7 @@ export default {
         if (response.code == 500){
           this.$message.error(response.data.msg);
         }
+
         this.tableData = response.data.data.subject
       })
     },
@@ -81,3 +89,12 @@ export default {
   }
 }
 </script>
+
+
+<style>
+.page {
+  text-align: center;
+  margin-top: 10px;
+  background-color: #ffffff;
+}
+</style>
