@@ -34,15 +34,15 @@
 
 <script>
 
-import {getSubList, saveSubject} from "../../api/api";
+import {saveSubject} from "../../api/subApi";
 
 export default {
+  props: ['sublist'],
   data() {
     return {
-      sublist: [],
       dialogFormVisible: false,
       form: {
-        id: 6,
+        id: 8,
         subName: '',
         isEnable: '0',
         direction: '1',
@@ -50,29 +50,17 @@ export default {
       },
     };
   },
-  created() {
-    this.list()
-  },
-
   methods: {
-    list() {
-      getSubList().then((response) => {
-        console.log(response.data)
-        if (response.code == 500) {
-          this.$message.error(response.data.msg);
-        }
-        this.sublist = response.data.data.subject
-      })
-    },
     saveSub(param) {
       console.log(param)
-      saveSubject(param).then((response)=>{
+      saveSubject(param).then((response) => {
         console.log(response)
         if (response.code == 500) {
           this.$message.error(response.data.msg);
         }
       })
       this.dialogFormVisible = false
+      this.$parent.reload()
     }
   }
 };

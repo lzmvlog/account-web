@@ -1,5 +1,8 @@
 <template>
-  <Add/>
+  <Add
+      v-bind:sublist="tableData"
+      v-bind:listId="listId"
+  />
   <div class="subject">
     <el-table
         :data="tableData"
@@ -50,7 +53,7 @@
 </template>
 
 <script>
-import {getSubList} from "../../api/api";
+import {getSubList} from "../../api/subApi";
 import Add from "./Add";
 
 export default {
@@ -60,7 +63,8 @@ export default {
   data() {
     return {
       tableData: [],
-      meg: false
+      meg: false,
+      listId: ''
     }
   },
   created() {
@@ -72,11 +76,9 @@ export default {
     },
     list() {
       getSubList().then((response) => {
-        console.log(response.data)
-        if (response.code == 500){
+        if (response.code == 500) {
           this.$message.error(response.data.msg);
         }
-
         this.tableData = response.data.data.subject
       })
     },
@@ -85,6 +87,9 @@ export default {
     },
     direction(row) {
       return row.direction == 0 ? '借' : '贷'
+    },
+    reload(){
+      location.reload()
     }
   }
 }
@@ -95,6 +100,6 @@ export default {
 .page {
   text-align: center;
   margin-top: 10px;
-  background-color: #ffffff;
+  /*background-color: #ffffff;*/
 }
 </style>

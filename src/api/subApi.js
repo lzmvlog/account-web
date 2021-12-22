@@ -5,5 +5,5 @@ export function getSubList() {
 }
 
 export function saveSubject(param) {
-    return axios.post("/sub/save",param)
+    return axios.post("/sub/save", param)
 }
