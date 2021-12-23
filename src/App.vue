@@ -27,17 +27,18 @@
             <template #title>科目管理</template>
             <el-menu-item @click="subject()">会计科目</el-menu-item>
           </el-sub-menu>
-          <el-menu-item-group>
-          </el-menu-item-group>
-          <!--          <el-sub-menu index="1-4">-->
-          <!--            <template #title>Option4</template>-->
-          <!--            <el-menu-item index="1-4-1">Option 4-1</el-menu-item>-->
-          <!--          </el-sub-menu>-->
+<!--            <el-menu-item-group>-->
+<!--            </el-menu-item-group>-->
+<!--            <el-sub-menu index="1-4">-->
+<!--              <template #title>Option4</template>-->
+<!--              <el-menu-item index="1-4-1">Option 4-1</el-menu-item>-->
+<!--            </el-sub-menu>-->
         </el-sub-menu>
       </el-menu>
     </el-aside>
 
-    <el-container style="background-color: rgb(238, 241, 246)">
+<!--    style="background-color: rgb(238, 241, 246)"-->
+    <el-container >
       <el-main>
         <!--        主要显示的内容-->
         <router-view/>

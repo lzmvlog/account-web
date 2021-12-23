@@ -34,7 +34,7 @@
           width="120">
         <template v-slot="scope">
           <el-button
-              @click="editRow(scope.$index, tableData)"
+              @click="editRow(scope.$index,tableData)"
               type="text"
               size="small">
             编辑
@@ -47,13 +47,14 @@
     <el-pagination
         background
         layout="prev, pager, next"
-        :total="1000">
+        :current-change="getPage"
+        :total="total">
     </el-pagination>
   </div>
 </template>
 
 <script>
-import {getSubList} from "../../api/subApi";
+import {getSubList, page} from "../../api/subApi";
 import Add from "./Add";
 
 export default {
@@ -64,15 +65,18 @@ export default {
     return {
       tableData: [],
       meg: false,
-      listId: ''
+      listId: '',
+      total: 100,
+      currentPage: '',
     }
   },
   created() {
     this.list()
   },
   methods: {
-    editRow(index, rows) {
+    editRow(index,rows) {
       rows.splice(index, 1);
+      console.log(index)
     },
     list() {
       getSubList().then((response) => {
@@ -82,13 +86,19 @@ export default {
         this.tableData = response.data.data.subject
       })
     },
+    getPage(data) {
+      page(data).then((res) => {
+        console.log(data)
+        console.log(res)
+      })
+    },
     isEnable(row) {
       return row.isEnable == 0 ? '否' : '是'
     },
     direction(row) {
       return row.direction == 0 ? '借' : '贷'
     },
-    reload(){
+    reload() {
       location.reload()
     }
   }
@@ -100,6 +110,5 @@ export default {
 .page {
   text-align: center;
   margin-top: 10px;
-  /*background-color: #ffffff;*/
 }
 </style>
