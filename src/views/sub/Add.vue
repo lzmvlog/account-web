@@ -42,7 +42,6 @@ export default {
     return {
       dialogFormVisible: false,
       form: {
-        id: 8,
         subName: '',
         isEnable: '0',
         direction: '1',
