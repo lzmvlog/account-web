@@ -1,4 +1,5 @@
 <template>
+  <Add/>
   <div class="subject">
     <el-table
         :data="tableData"
@@ -52,8 +53,12 @@
 
 <script>
 import {getBillList} from "../../api/billApi";
+import Add from "./Add";
 
 export default {
+  components: {
+    Add
+  },
   data() {
     return {
       tableData: [],
