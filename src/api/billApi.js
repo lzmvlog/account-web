@@ -4,3 +4,8 @@ import axios from "axios";
 export function getBillList() {
     return axios.get("/bill/listBill")
 }
+
+// saveBill 保存
+export function saveBill(param) {
+    return axios.post("/bill/saveBill", param)
+}

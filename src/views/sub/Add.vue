@@ -60,6 +60,7 @@ export default {
       })
       this.dialogFormVisible = false
       this.$parent.reload()
+      this.form = ''
     }
   }
 };

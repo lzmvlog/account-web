@@ -1,7 +1,6 @@
 <template>
   <Add
       v-bind:sublist="tableData"
-      v-bind:listId="listId"
   />
   <div class="subject">
     <el-table
@@ -65,7 +64,6 @@ export default {
     return {
       tableData: [],
       meg: false,
-      listId: '',
       total: 100,
       currentPage: '',
     }

@@ -1,15 +1,22 @@
 <template>
-  <el-button type="primary" @click="dialogFormVisible = true" style="margin-bottom: 10px">新增</el-button>
+  <el-button type="primary" @click="openSave" style="margin-bottom: 10px">新增</el-button>
 
-  <el-dialog title="会计科目" v-model="dialogFormVisible">
+  <el-dialog title="账单" v-model="dialogFormVisible">
     <el-form :model="form">
       <el-form-item label="科目名称">
-        <el-input v-model="form.subName" :clearable="true" autocomplete="off"></el-input>
+        <el-select v-model="form.subName" placeholder="请选择" @change="saveSub">
+          <el-option
+              v-for="item in sublist"
+              :key="item.id"
+              :label="item.subName"
+              :value="item">
+          </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="消费金额">
         <el-input v-model="form.amount" :clearable="true" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="备 注">
+      <el-form-item label="账单备注">
         <el-input v-model="form.remark" :clearable="true" autocomplete="off"></el-input>
       </el-form-item>
     </el-form>
@@ -21,16 +28,52 @@
 </template>
 
 <script>
+import {saveBill} from "@/api/billApi";
+import {getSubList} from "@/api/subApi";
+
 export default {
   data() {
     return {
       dialogFormVisible: false,
       form: {
+        subId: '',
         subName: '',
-        ammount: '',
-        remark: ''
+        direction: '',
+        amount: '',
+        remark: '',
+        createDate: '',
       },
+      sublist: [],
     };
   },
+  methods: {
+    saveBill(param) {
+      this.form.createDate = new Date()
+      console.log(param)
+      saveBill(param).then(response => {
+        console.log(response)
+        if (response.code == 500) {
+          this.$message.error(response.data.msg);
+        }
+      })
+      this.dialogFormVisible = false
+      this.$parent.reload()
+    },
+    openSave() {
+      this.dialogFormVisible = true
+      getSubList().then((response) => {
+        if (response.code == 500) {
+          this.$message.error(response.data.msg);
+        }
+        this.sublist = response.data.data.subject
+      })
+    },
+    saveSub(param) {
+      this.form.subId = param.id
+      this.form.subName = param.subName
+      this.form.direction = param.direction
+      console.log(this.form)
+    }
+  }
 }
 </script>

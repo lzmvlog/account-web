@@ -22,17 +22,15 @@
       </el-table-column>
       <el-table-column
           prop="amount"
-          label="金额"
-          :formatter="amount">
+          label="金额">
       </el-table-column>
       <el-table-column
           prop="createDate"
-          label="创建时间"
-          :formatter="createDate" >
+          label="创建时间">
       </el-table-column>
       <el-table-column
           prop="remark"
-          label="备注" >
+          label="备注">
       </el-table-column>
       <el-table-column
           fixed="right"
@@ -78,6 +76,9 @@ export default {
     },
     direction(row) {
       return row.direction == 0 ? '借' : '贷'
+    },
+    reload() {
+      location.reload()
     },
   },
   // filters: {
