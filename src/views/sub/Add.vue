@@ -54,7 +54,7 @@ export default {
       console.log(param)
       saveSubject(param).then((response) => {
         console.log(response)
-        if (response.code == 500) {
+        if (response.data.code == 500) {
           this.$message.error(response.data.msg);
         }
       })

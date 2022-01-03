@@ -47,12 +47,15 @@ export default {
     };
   },
   methods: {
+    // 保存账单
     saveBill(param) {
       this.form.createDate = new Date()
       console.log(param)
       saveBill(param).then(response => {
-        console.log(response)
-        if (response.code == 500) {
+        if (response.data.code == 200) {
+          this.$message.success(response.data.msg);
+        }
+        if (response.data.code == 500) {
           this.$message.error(response.data.msg);
         }
       })
@@ -62,17 +65,17 @@ export default {
     openSave() {
       this.dialogFormVisible = true
       getSubList().then((response) => {
-        if (response.code == 500) {
+        if (response.data.code == 500) {
           this.$message.error(response.data.msg);
         }
         this.sublist = response.data.data.subject
       })
     },
+    // 选择账单类型时构建账单信息
     saveSub(param) {
       this.form.subId = param.id
       this.form.subName = param.subName
       this.form.direction = param.direction
-      console.log(this.form)
     }
   }
 }
