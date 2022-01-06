@@ -28,4 +28,13 @@ const router = createRouter({
     routes
 })
 
+router.beforeEach(function(to, from, next) {
+    if (!localStorage.getItem("token")) {
+        if (to.path !== '/') {
+            return next('/')
+        }
+    }
+    next()
+})
+
 export default router
