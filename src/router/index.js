@@ -9,18 +9,20 @@ const routes = [
     {
         path: '/home',
         name: 'Home',
-        component: () => import('../views/Home')
+        component: () => import('../views/Home'),
+        children: [
+            {
+                path: '/sub',
+                name: 'Subjects',
+                component: () => import('../views/sub/Subjects')
+            },
+            {
+                path: '/bill',
+                name: 'bill',
+                component: () => import('../views/bill/Bill')
+            }
+        ]
     },
-    {
-        path: '/sub',
-        name: 'Subjects',
-        component: () => import('../views/sub/Subjects')
-    },
-    {
-        path: '/bill',
-        name: 'bill',
-        component: () => import('../views/bill/Bill')
-    }
 ]
 
 const router = createRouter({

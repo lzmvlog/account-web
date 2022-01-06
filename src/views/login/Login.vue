@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import {login} from "@/api/loginApi";
+import {login} from "../../api/loginApi";
 
 export default {
   data() {

@@ -61,7 +61,7 @@ export default defineComponent({
   },
   methods: {
     home() {
-      this.$router.push('/')
+      this.$router.push('/home')
     },
     // 跳转会计科目
     subject() {
