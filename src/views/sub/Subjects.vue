@@ -1,6 +1,6 @@
 <template>
   <Add
-      v-bind:sublist="tableData"
+      v-bind:sublist="data"
   />
   <div class="subject">
     <el-table
@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import {getSubList, page} from "../../api/subApi";
+import {getSubList, pageSub} from "../../api/subApi";
 import Add from "./Add";
 
 export default {
@@ -63,16 +63,19 @@ export default {
   data() {
     return {
       tableData: [],
+      data:[],
       meg: false,
       total: 100,
-      currentPage: '',
+      current: 1,
+      size: 10,
     }
   },
   created() {
     this.list()
+    this.getPage(this.current, this.size)
   },
   methods: {
-    editRow(index,rows) {
+    editRow(index, rows) {
       rows.splice(index, 1);
       console.log(index)
     },
@@ -81,13 +84,16 @@ export default {
         if (response.code == 500) {
           this.$message.error(response.data.msg);
         }
-        this.tableData = response.data.data.subject
+        this.data = response.data.data.subject
       })
     },
-    getPage(data) {
-      page(data).then((res) => {
-        console.log(data)
-        console.log(res)
+    getPage(current, size) {
+      pageSub(current, size).then((response) => {
+        if (response.code == 500) {
+          this.$message.error(response.data.msg);
+        }
+        this.tableData = response.data.data.page.dataList
+        this.total = response.data.data.page.count
       })
     },
     isEnable(row) {

@@ -11,6 +11,6 @@ export function saveSubject(param) {
 }
 
 // page 分页获取列表
-export function page(data) {
-    return axios.get("/sub/pageSub", data)
+export function pageSub(current, size) {
+    return axios.get("/sub/pageSub?page=" + current + "&size=" + size)
 }

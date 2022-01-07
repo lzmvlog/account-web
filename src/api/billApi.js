@@ -9,3 +9,8 @@ export function getBillList() {
 export function saveBill(param) {
     return axios.post("/bill/saveBill", param)
 }
+
+// page 分页获取列表
+export function pageBill(current, size) {
+    return axios.get("/bill/pageBill?page=" + current + "&size=" + size)
+}

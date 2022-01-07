@@ -12,7 +12,6 @@ axios.defaults.baseURL = 'http://localhost:8090/'
 axios.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
     let token = localStorage.getItem("token");
-    console.log(token)
     if (token != null) {
         // 设置token
        config.headers.Authorization = "Bearer " + token

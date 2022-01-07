@@ -47,10 +47,18 @@
       </el-table-column>
     </el-table>
   </div>
+  <div class="page">
+    <el-pagination
+        background
+        layout="prev, pager, next"
+        :current-change="getPage"
+        :total="total">
+    </el-pagination>
+  </div>
 </template>
 
 <script>
-import {getBillList} from "../../api/billApi";
+import {pageBill} from "../../api/billApi";
 import Add from "./Add";
 
 export default {
@@ -60,18 +68,22 @@ export default {
   data() {
     return {
       tableData: [],
+      total: 100,
+      current: 1,
+      size: 10,
     }
   },
   created() {
-    this.list()
+    this.page(this.current, this.size)
   },
   methods: {
-    list() {
-      getBillList().then(res => {
-        if (res.code == 500) {
-          this.$message.error(res.data.msg);
+    page(current, size) {
+      pageBill(current, size).then(response => {
+        if (response.code == 500) {
+          this.$message.error(response.data.msg);
         }
-        this.tableData = res.data.data.bill
+        this.tableData = response.data.data.page.dataList
+        this.total = response.data.data.page.count
       })
     },
     direction(row) {
@@ -81,11 +93,12 @@ export default {
       location.reload()
     },
   },
-  // filters: {
-  //   formateDate(time) {
-  //     let date = new Date(time)
-  //     return formateDate(date, 'YYYY-MM-dd hh:mm')
-  //   }
-  // }
 }
 </script>
+
+<style>
+.page {
+  text-align: center;
+  margin-top: 10px;
+}
+</style>
