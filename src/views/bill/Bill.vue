@@ -50,8 +50,10 @@
   <div class="page">
     <el-pagination
         background
-        layout="prev, pager, next"
-        :current-change="getPage"
+        layout="size, prev, pager, next"
+        :page-size="size"
+        :current-page="currentPage"
+        @current-change="getPage"
         :total="total">
     </el-pagination>
   </div>
@@ -69,12 +71,12 @@ export default {
     return {
       tableData: [],
       total: 100,
-      current: 1,
+      currentPage: 1,
       size: 10,
     }
   },
   created() {
-    this.page(this.current, this.size)
+    this.page(this.currentPage, this.size)
   },
   methods: {
     page(current, size) {
@@ -85,6 +87,11 @@ export default {
         this.tableData = response.data.data.page.dataList
         this.total = response.data.data.page.count
       })
+    },
+    getPage(page) {
+      this.tableData = []
+      this.currentPage = page
+      this.page(this.currentPage, this.size)
     },
     direction(row) {
       return row.direction == 0 ? '借' : '贷'

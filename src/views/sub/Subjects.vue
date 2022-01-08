@@ -45,8 +45,10 @@
   <div class="page">
     <el-pagination
         background
-        layout="prev, pager, next"
-        :current-change="getPage"
+        layout="size, prev, pager, next"
+        :page-size="size"
+        :current-page="currentPage"
+        @current-change="getPage"
         :total="total">
     </el-pagination>
   </div>
@@ -66,13 +68,13 @@ export default {
       data:[],
       meg: false,
       total: 100,
-      current: 1,
+      currentPage: 1,
       size: 10,
     }
   },
   created() {
     this.list()
-    this.getPage(this.current, this.size)
+    this.page(this.currentPage, this.size)
   },
   methods: {
     editRow(index, rows) {
@@ -87,7 +89,7 @@ export default {
         this.data = response.data.data.subject
       })
     },
-    getPage(current, size) {
+    page(current, size) {
       pageSub(current, size).then((response) => {
         if (response.code == 500) {
           this.$message.error(response.data.msg);
@@ -95,6 +97,11 @@ export default {
         this.tableData = response.data.data.page.dataList
         this.total = response.data.data.page.count
       })
+    },
+    getPage(page) {
+      this.tableData = []
+      this.currentPage = page
+      this.page(this.currentPage, this.size)
     },
     isEnable(row) {
       return row.isEnable == 0 ? '否' : '是'
