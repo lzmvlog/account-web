@@ -65,7 +65,7 @@ export default {
   data() {
     return {
       tableData: [],
-      data:[],
+      data: [],
       meg: false,
       total: 100,
       currentPage: 1,
@@ -83,7 +83,7 @@ export default {
     },
     list() {
       getSubList().then((response) => {
-        if (response.code == 500) {
+        if (response.data.code == 500) {
           this.$message.error(response.data.msg);
         }
         this.data = response.data.data.subject
@@ -91,7 +91,7 @@ export default {
     },
     page(current, size) {
       pageSub(current, size).then((response) => {
-        if (response.code == 500) {
+        if (response.data.code == 500) {
           this.$message.error(response.data.msg);
         }
         this.tableData = response.data.data.page.dataList

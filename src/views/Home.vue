@@ -23,12 +23,9 @@
             </el-icon>
             基础设置
           </template>
-          <el-sub-menu index="1-1">
-            <template #title>科目管理</template>
-            <el-menu-item @click="subject()">会计科目</el-menu-item>
-          </el-sub-menu>
+          <el-menu-item index="1-1" @click="subject()">会计科目</el-menu-item>
+          <el-menu-item index="1-2" @click="user()">账号管理</el-menu-item>
         </el-sub-menu>
-
         <el-sub-menu index="2">
           <template #title>
             <el-icon>
@@ -69,6 +66,9 @@ export default defineComponent({
     },
     bill(){
       this.$router.push('/bill')
+    },
+    user(){
+      this.$router.push('/user')
     }
   }
 })

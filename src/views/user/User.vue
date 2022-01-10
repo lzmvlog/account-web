@@ -1,5 +1,4 @@
 <template>
-  <Add/>
   <div class="subject">
     <el-table
         :data="tableData"
@@ -12,25 +11,13 @@
           label="排序">
       </el-table-column>
       <el-table-column
-          prop="subName"
-          label="支出名称">
+          prop="userName"
+          label="用户名称">
       </el-table-column>
       <el-table-column
-          prop="direction"
-          label="收入/支出"
-          :formatter="direction">
-      </el-table-column>
-      <el-table-column
-          prop="amount"
-          label="金额">
-      </el-table-column>
-      <el-table-column
-          prop="createDate"
-          label="创建时间">
-      </el-table-column>
-      <el-table-column
-          prop="remark"
-          label="备注">
+          prop="isEnable"
+          label="是否启用"
+          :formatter="isEnable">
       </el-table-column>
       <el-table-column
           fixed="right"
@@ -60,27 +47,25 @@
 </template>
 
 <script>
-import {pageBill} from "../../api/billApi";
-import Add from "./Add";
+import {getUserPage} from "../../api/userApi";
 
 export default {
-  components: {
-    Add
-  },
   data() {
     return {
       tableData: [],
+      data: [],
+      meg: false,
       total: 100,
       currentPage: 1,
       size: 10,
     }
   },
   created() {
-    this.page(this.currentPage, this.size)
+    this.getUserPages(this.currentPage, this.size)
   },
   methods: {
-    page(current, size) {
-      pageBill(current, size).then(response => {
+    getUserPages(current, size){
+      getUserPage(current, size).then((response)=>{
         if (response.data.code == 500) {
           this.$message.error(response.data.msg);
         }
@@ -93,19 +78,11 @@ export default {
       this.currentPage = page
       this.page(this.currentPage, this.size)
     },
-    direction(row) {
-      return row.direction == 0 ? '借' : '贷'
-    },
-    reload() {
-      location.reload()
+    isEnable(row) {
+      return row.isEnable == 0 ? '否' : '是'
     },
   },
+
 }
 </script>
 
-<style>
-.page {
-  text-align: center;
-  margin-top: 10px;
-}
-</style>

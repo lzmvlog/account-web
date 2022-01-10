@@ -20,6 +20,11 @@ const routes = [
                 path: '/bill',
                 name: 'bill',
                 component: () => import('../views/bill/Bill')
+            },
+            {
+                path: '/user',
+                name: 'user',
+                component: () => import('../views/user/User')
             }
         ]
     },
