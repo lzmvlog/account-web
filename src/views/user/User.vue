@@ -15,6 +15,10 @@
           label="用户名称">
       </el-table-column>
       <el-table-column
+          prop="createDate"
+          label="创建时间">
+      </el-table-column>
+      <el-table-column
           prop="isEnable"
           label="是否启用"
           :formatter="isEnable">

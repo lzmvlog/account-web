@@ -21,3 +21,9 @@ export default defineComponent({
 })
 </script>
 
+<style>
+.cell{
+  text-align: center;
+}
+</style>
+
