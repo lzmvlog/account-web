@@ -1,5 +1,6 @@
 <template>
-  <div class="subject">
+  <Add/>
+  <div>
     <el-table
         :data="tableData"
         border
@@ -52,8 +53,10 @@
 
 <script>
 import {getUserPage} from "../../api/userApi";
+import Add from "./Add";
 
 export default {
+  components: {Add},
   data() {
     return {
       tableData: [],

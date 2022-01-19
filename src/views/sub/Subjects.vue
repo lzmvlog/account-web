@@ -33,7 +33,7 @@
           width="120">
         <template v-slot="scope">
           <el-button
-              @click="editRow(scope.$index,tableData)"
+              @click="editRow(scope.$index,scope.row)"
               type="text"
               size="small">
             编辑
@@ -78,8 +78,7 @@ export default {
   },
   methods: {
     editRow(index, rows) {
-      rows.splice(index, 1);
-      console.log(index)
+      console.log(rows.id)
     },
     list() {
       getSubList().then((response) => {
