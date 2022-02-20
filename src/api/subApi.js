@@ -14,3 +14,8 @@ export function saveSubject(param) {
 export function pageSub(current, size) {
     return axios.get("/sub/pageSub?page=" + current + "&size=" + size)
 }
+
+// 根据id获取科目
+export function getOne(id) {
+    return axios.get("/sub/findOneSub?id=" + id)
+}

@@ -52,8 +52,8 @@
 </template>
 
 <script>
-import {getUserPage} from "../../api/userApi";
-import Add from "./Add";
+import {getUserPage} from "@/api/userApi";
+import Add from "./AddUser";
 
 export default {
   components: {Add},

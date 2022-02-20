@@ -1,3 +1,4 @@
+<!--
 <template>
   <el-button type="primary" @click="dialogFormVisible = true" style="margin-bottom: 10px">新增</el-button>
 
@@ -34,7 +35,7 @@
 
 <script>
 
-import {saveSubject} from "../../api/subApi";
+import {saveSubject} from "@/api/subApi";
 
 export default {
   props: ['sublist'],
@@ -51,9 +52,7 @@ export default {
   },
   methods: {
     saveSub(param) {
-      console.log(param)
       saveSubject(param).then((response) => {
-        console.log(response)
         if (response.data.code == 500) {
           this.$message.error(response.data.msg);
         }
@@ -66,3 +65,4 @@ export default {
 };
 </script>
 
+-->

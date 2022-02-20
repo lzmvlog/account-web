@@ -60,8 +60,8 @@
 </template>
 
 <script>
-import {pageBill} from "../../api/billApi";
-import Add from "./Add";
+import {pageBill} from "@/api/billApi";
+import Add from "./AddBill";
 
 export default {
   components: {

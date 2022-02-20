@@ -19,7 +19,7 @@
 
 <script>
 
-import {saveSubject} from "../../api/subApi";
+import {saveSubject} from "@/api/subApi";
 
 export default {
   data() {

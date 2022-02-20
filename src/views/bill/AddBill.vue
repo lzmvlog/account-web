@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import {saveBill} from "../../api/billApi";
-import {getSubList} from "../../api/subApi";
+import {saveBill} from "@/api/billApi";
+import {getSubList} from "@/api/subApi";
 
 export default {
   data() {
