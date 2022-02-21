@@ -47,25 +47,16 @@
       </el-table-column>
     </el-table>
   </div>
-  <div class="page">
-    <el-pagination
-        background
-        layout="size, prev, pager, next"
-        :page-size="size"
-        :current-page="currentPage"
-        @current-change="getPage"
-        :total="total">
-    </el-pagination>
-  </div>
+  <Page :total="total" :page-size="currentPage"/>
 </template>
 
 <script>
 import {pageBill} from "@/api/billApi";
-import Add from "./AddBill";
+import Page from "@/components/Page";
 
 export default {
   components: {
-    Add
+    Page
   },
   data() {
     return {
@@ -86,6 +77,7 @@ export default {
         }
         this.tableData = response.data.data.page.dataList
         this.total = response.data.data.page.count
+        this.currentPage = response.data.data.page.size
       })
     },
     getPage(page) {

@@ -18,12 +18,12 @@
           </el-select>
         </el-form-item>
         <el-form-item label="借贷方向">
-          <el-radio v-model="form.direction" label="0">借</el-radio>
-          <el-radio v-model="form.direction" label="1">贷</el-radio>
+          <el-radio v-model="form.direction" :label="0">借</el-radio>
+          <el-radio v-model="form.direction" :label="1">贷</el-radio>
         </el-form-item>
         <el-form-item label="是否停用">
-          <el-radio v-model="form.isEnable" label="0">否</el-radio>
-          <el-radio v-model="form.isEnable" label="1">是</el-radio>
+          <el-radio v-model="form.isEnable" :label="0">否</el-radio>
+          <el-radio v-model="form.isEnable" :label="1">是</el-radio>
         </el-form-item>
       </el-form>
       <div>
@@ -138,14 +138,16 @@ export default {
       this.page(this.currentPage, this.size)
     },
     saveSub(param) {
-      saveSubject(param).then((response) => {
-        if (response.data.code == 500) {
-          this.$message.error(response.data.msg);
-        }
-      })
-      this.dialogFormVisible = false
-      this.form = ''
-      location.reload()
+      if (param.id != undefined) {
+        saveSubject(param).then((response) => {
+          if (response.data.code == 500) {
+            this.$message.error(response.data.msg);
+          }
+        })
+        this.dialogFormVisible = false
+        this.form = ''
+      }
+      // location.reload()
     },
     isEnable(row) {
       return row.isEnable == 0 ? '否' : '是'

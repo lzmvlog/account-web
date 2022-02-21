@@ -39,24 +39,15 @@
       </el-table-column>
     </el-table>
   </div>
-  <div class="page">
-    <el-pagination
-        background
-        layout="size, prev, pager, next"
-        :page-size="size"
-        :current-page="currentPage"
-        @current-change="getPage"
-        :total="total">
-    </el-pagination>
-  </div>
+  <Page :total="total" :page-size="currentPage"/>
 </template>
 
 <script>
 import {getUserPage} from "@/api/userApi";
-import Add from "./AddUser";
+import Page from "@/components/Page";
 
 export default {
-  components: {Add},
+  components: {Page},
   data() {
     return {
       tableData: [],
@@ -78,6 +69,7 @@ export default {
         }
         this.tableData = response.data.data.page.dataList
         this.total = response.data.data.page.count
+        this.currentPage = response.data.data.page.size
       })
     },
     getPage(page) {
