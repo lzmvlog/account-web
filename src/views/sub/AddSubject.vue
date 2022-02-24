@@ -1,8 +1,5 @@
-<!--
 <template>
-  <el-button type="primary" @click="dialogFormVisible = true" style="margin-bottom: 10px">新增</el-button>
-
-  <el-dialog title="会计科目" v-model="dialogFormVisible">
+  <el-dialog title="会计科目" :model-value="dialogFormVisible">
     <el-form :model="form">
       <el-form-item label="科目名称">
         <el-input v-model="form.subName" :clearable="true" autocomplete="off"></el-input>
@@ -18,30 +15,28 @@
         </el-select>
       </el-form-item>
       <el-form-item label="借贷方向">
-        <el-radio v-model="form.direction" label="0">借</el-radio>
-        <el-radio v-model="form.direction" label="1">贷</el-radio>
+        <el-radio v-model="form.direction" :label="0">借</el-radio>
+        <el-radio v-model="form.direction" :label="1">贷</el-radio>
       </el-form-item>
       <el-form-item label="是否停用">
-        <el-radio v-model="form.isEnable" label="0">否</el-radio>
-        <el-radio v-model="form.isEnable" label="1">是</el-radio>
+        <el-radio v-model="form.isEnable" :label="0">否</el-radio>
+        <el-radio v-model="form.isEnable" :label="1">是</el-radio>
       </el-form-item>
     </el-form>
     <div>
-      <el-button @click="dialogFormVisible = false">取 消</el-button>
+      <el-button @click="cancel">取 消</el-button>
       <el-button type="primary" @click="saveSub(form)">确 定</el-button>
     </div>
   </el-dialog>
 </template>
 
 <script>
-
-import {saveSubject} from "@/api/subApi";
+import {getOne, saveSubject} from "@/api/subApi";
 
 export default {
-  props: ['sublist'],
+  props: ['sublist','dialogFormVisible'],
   data() {
     return {
-      dialogFormVisible: false,
       form: {
         subName: '',
         isEnable: '0',
@@ -57,12 +52,23 @@ export default {
           this.$message.error(response.data.msg);
         }
       })
-      this.dialogFormVisible = false
       this.$parent.reload()
       this.form = ''
-    }
+    },
+    editRow(id) {
+      console.log(id)
+      getOne(id).then((response) => {
+        this.form = response.data.data.subject
+      })
+      // 父级传递
+      this.$emit('changeDialog')
+    },
+    cancel() {
+      this.form = ''
+      // 父级传递
+      this.$emit('changeDialog')
+    },
   }
 };
 </script>
 
--->
