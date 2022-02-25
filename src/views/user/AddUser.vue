@@ -1,7 +1,5 @@
 <template>
-  <el-button type="primary" @click="dialogFormVisible = true" style="margin-bottom: 10px">新增</el-button>
-
-  <el-dialog title="新增账号" v-model="dialogFormVisible">
+  <el-dialog title="新增账号" :model-value="dialogFormVisible">
     <el-form :model="form">
       <el-form-item label="账号名称">
         <el-input v-model="form.userName" :clearable="true" autocomplete="on"></el-input>
@@ -11,7 +9,7 @@
       </el-form-item>
     </el-form>
     <div>
-      <el-button @click="dialogFormVisible = false">取 消</el-button>
+      <el-button >取 消</el-button>
       <el-button type="primary" @click="saveSub(form)">确 定</el-button>
     </div>
   </el-dialog>
@@ -22,9 +20,9 @@
 import {saveSubject} from "@/api/subApi";
 
 export default {
+  props:['dialogFormVisible'],
   data() {
     return {
-      dialogFormVisible: false,
       form: {
         subName: '',
         isEnable: '0',
@@ -42,7 +40,6 @@ export default {
           this.$message.error(response.data.msg);
         }
       })
-      this.dialogFormVisible = false
       this.$parent.reload()
       this.form = ''
     }

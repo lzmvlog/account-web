@@ -75,13 +75,15 @@ export default {
   // 生命周期函数
   created() {
     this.list()
-    this.page(this.currentPage, this.size)
+    this.getpage(this.currentPage, this.size)
   },
   methods: {
+    // 编辑行
     editRow(id) {
       this.form.id = id
       this.dialogFormVisible = true
     },
+    // 获取列表
     list() {
       getSubList().then((response) => {
         if (response.data.code == 500) {
@@ -90,7 +92,8 @@ export default {
         this.sublist = response.data.data.subject
       })
     },
-    page(current, size) {
+    // 分页插叙
+    getpage(current, size) {
       pageSub(current, size).then((response) => {
         if (response.data.code == 500) {
           this.$message.error(response.data.msg);
@@ -111,9 +114,11 @@ export default {
     direction(row) {
       return row.direction == 0 ? '借' : '贷'
     },
+    // 重新加载当前页面
     reload() {
       location.reload()
     },
+    // 关闭弹窗
     changeDialog() {
       this.dialogFormVisible = false
     }

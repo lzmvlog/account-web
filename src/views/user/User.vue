@@ -1,5 +1,6 @@
 <template>
-  <Add/>
+  <el-button type="primary" @click="dialogFormVisible = true" style="margin-bottom: 10px">新增</el-button>
+  <AddUser :dialogFormVisible="dialogFormVisible"/>
   <div>
     <el-table
         :data="tableData"
@@ -45,11 +46,13 @@
 <script>
 import {getUserPage} from "@/api/userApi";
 import Page from "@/components/Page";
+import AddUser from "./AddUser";
 
 export default {
-  components: {Page},
+  components: {Page, AddUser},
   data() {
     return {
+      dialogFormVisible: false,
       tableData: [],
       data: [],
       meg: false,
@@ -62,8 +65,8 @@ export default {
     this.getUserPages(this.currentPage, this.size)
   },
   methods: {
-    getUserPages(current, size){
-      getUserPage(current, size).then((response)=>{
+    getUserPages(current, size) {
+      getUserPage(current, size).then((response) => {
         if (response.data.code == 500) {
           this.$message.error(response.data.msg);
         }
