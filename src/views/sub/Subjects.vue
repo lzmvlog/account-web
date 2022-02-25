@@ -1,6 +1,7 @@
 <template>
-  <el-button type="primary"  @click="dialogFormVisible = true"  style="margin-bottom: 10px">新增</el-button>
-  <AddSubject :sublist="sublist" :dialogFormVisible="dialogFormVisible" @changeDialog="changeDialog"/>
+  <el-button type="primary" @click="dialogFormVisible = true" style="margin-bottom: 10px">新增</el-button>
+  <AddSubject :sublist="sublist" :dialogFormVisible="dialogFormVisible" :id="this.form.id"
+              @changeDialog="changeDialog"/>
   <div class="subject">
     <el-table
         :data="tableData"
@@ -46,7 +47,7 @@
 </template>
 
 <script>
-import {getOne, getSubList, pageSub, saveSubject} from "@/api/subApi";
+import {getSubList, pageSub} from "@/api/subApi";
 import Page from "@/components/Page";
 import AddSubject from "@/views/sub/AddSubject";
 
@@ -62,6 +63,7 @@ export default {
       size: 10,
       dialogFormVisible: false,
       form: {
+        id: '',
         subName: '',
         isEnable: 0,
         direction: 1,
@@ -77,10 +79,7 @@ export default {
   },
   methods: {
     editRow(id) {
-      console.log(id)
-      getOne(id).then((response) => {
-        this.form = response.data.data.subject
-      })
+      this.form.id = id
       this.dialogFormVisible = true
     },
     list() {
@@ -106,18 +105,6 @@ export default {
       this.currentPage = page
       this.page(this.currentPage, this.size)
     },
-    saveSub(param) {
-      if (param.id != undefined) {
-        saveSubject(param).then((response) => {
-          if (response.data.code == 500) {
-            this.$message.error(response.data.msg);
-          }
-        })
-        this.dialogFormVisible = false
-        this.form = ''
-      }
-      // location.reload()
-    },
     isEnable(row) {
       return row.isEnable == 0 ? '否' : '是'
     },
@@ -127,7 +114,7 @@ export default {
     reload() {
       location.reload()
     },
-    changeDialog(){
+    changeDialog() {
       this.dialogFormVisible = false
     }
   }

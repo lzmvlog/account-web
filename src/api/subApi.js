@@ -19,3 +19,8 @@ export function pageSub(current, size) {
 export function getOne(id) {
     return axios.get("/sub/findOneSub?id=" + id)
 }
+
+// editSubject 修改科目信息
+export function editSubject(param) {
+    return axios.post("/sub/updateSub", param)
+}
