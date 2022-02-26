@@ -18,9 +18,16 @@
         <el-radio v-model="form.direction" :label="0">借</el-radio>
         <el-radio v-model="form.direction" :label="1">贷</el-radio>
       </el-form-item>
-      <el-form-item label="是否停用">
-        <el-radio v-model="form.isEnable" :label="0">否</el-radio>
-        <el-radio v-model="form.isEnable" :label="1">是</el-radio>
+      <el-form-item >
+        <el-switch
+            v-model="form.isEnable"
+            active-text="启用"
+            active-color="#13ce66"
+            :active-value="0"
+            inactive-text="禁用"
+            inactive-color="#ff4949"
+            :inactive-value="1">
+        </el-switch>
       </el-form-item>
     </el-form>
     <div>

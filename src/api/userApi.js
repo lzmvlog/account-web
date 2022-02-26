@@ -4,3 +4,8 @@ import axios from "axios";
 export function getUserPage(current, size) {
     return axios.get("/api/pageUser?page=" + current + "&size=" + size)
 }
+
+// register 开账号
+export function register(param){
+    return axios.post("/api/register", param)
+}

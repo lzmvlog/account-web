@@ -24,8 +24,18 @@
       </el-table-column>
       <el-table-column
           prop="isEnable"
-          label="是否启用"
-          :formatter="isEnable">
+          label="是否启用">
+        <template v-slot="scope">
+          <el-switch
+              v-model="scope.row.isEnable"
+              active-text="启用"
+              active-color="#13ce66"
+              :active-value="0"
+              inactive-text="禁用"
+              inactive-color="#ff4949"
+              :inactive-value="1">
+          </el-switch>
+        </template>
       </el-table-column>
       <el-table-column
           fixed="right"
@@ -107,9 +117,6 @@ export default {
       this.tableData = []
       this.currentPage = page
       this.page(this.currentPage, this.size)
-    },
-    isEnable(row) {
-      return row.isEnable == 0 ? '否' : '是'
     },
     direction(row) {
       return row.direction == 0 ? '借' : '贷'

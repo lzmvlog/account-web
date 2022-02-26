@@ -21,9 +21,19 @@
           label="创建时间">
       </el-table-column>
       <el-table-column
-          prop="isEnable"
-          label="是否启用"
-          :formatter="isEnable">
+          label="是否启用" >
+        <template v-slot="scope">
+          <el-switch
+              v-model="scope.row.isEnable"
+              active-text="启用"
+              active-color="#13ce66"
+              :active-value="0"
+              inactive-text="禁用"
+              inactive-color="#ff4949"
+              :inactive-value="1"
+              @change="updateEnable(scope.row.id)">
+          </el-switch>
+        </template>
       </el-table-column>
       <el-table-column
           fixed="right"
@@ -31,7 +41,7 @@
           width="120">
         <template v-slot="scope">
           <el-button
-              @click="editRow(scope.$index,tableData)"
+              @click="editRow(scope.row.id)"
               type="text"
               size="small">
             编辑
@@ -80,9 +90,10 @@ export default {
       this.currentPage = page
       this.page(this.currentPage, this.size)
     },
-    isEnable(row) {
-      return row.isEnable == 0 ? '否' : '是'
-    },
+    updateEnable(id){
+      console.log(id)
+      console.log(this.tableData.isEnable)
+    }
   },
 
 }
