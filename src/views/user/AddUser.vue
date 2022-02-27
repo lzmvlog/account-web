@@ -1,13 +1,13 @@
 <template>
-  <el-dialog title="账号管理" :model-value="dialogFormVisible" width="15%">
+  <el-dialog title="账号管理" :model-value="dialogFormVisible" :show-close=false width="15%">
     <el-form :model="form">
       <el-form-item label="账号名称">
         <el-input v-model="form.userName" :clearable="true" autocomplete="on"></el-input>
       </el-form-item>
       <el-form-item label="账号密码">
-        <el-input v-model="form.password" :clearable="true" autocomplete="off"></el-input>
+        <el-input v-model="form.password" :clearable="true" show-password autocomplete="off" :minlength="6"></el-input>
       </el-form-item>
-      <el-form-item >
+      <el-form-item>
         <el-switch
             v-model="form.isEnable"
             active-text="启用"
@@ -21,18 +21,18 @@
       </el-form-item>
     </el-form>
     <div>
-      <el-button >取 消</el-button>
-      <el-button type="primary" @click="editSub(form)">确 定</el-button>
+      <el-button @click="cancel">取 消</el-button>
+      <el-button type="primary" @click="editUser(form)">确 定</el-button>
     </div>
   </el-dialog>
 </template>
 
 <script>
 
-import {saveSubject} from "@/api/subApi";
+import {register} from "@/api/userApi";
 
 export default {
-  props: ['dialogFormVisible'],
+  props: ['dialogFormVisible', 'id'],
   data() {
     return {
       form: {
@@ -42,18 +42,39 @@ export default {
       }
     };
   },
+  watch: {
+    // 当监听到id 发生变化就获取数据
+    id: function (id) {
+      this.getOneUser(id)
+    }
+  },
   methods: {
     editUser(param) {
-      console.log(param)
-      saveSubject(param).then((response) => {
-        console.log(response)
-        if (response.data.code == 500) {
-          this.$message.error(response.data.msg);
-        }
-      })
-      // this.$parent.reload()
-      this.form = ''
-    }
+      if (param.id == undefined) {
+        register(param).then((response) => {
+          if (response.data.code != 200) {
+            this.$message.error(response.data.msg);
+            return
+          }
+          this.$message.success("新增成功")
+        })
+      } else {
+        console.log(param)
+      }
+      // location.reload()
+      // 父级传递
+      this.$emit('closeDialog')
+
+    },
+    getOneUser(id) {
+      console.log(id)
+    },
+    // 取消按钮
+    cancel() {
+      this.form.userName = ''
+      this.form.password = ''
+      this.$emit('closeDialog')
+    },
   }
 };
 </script>

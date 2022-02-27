@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="会计科目" :model-value="dialogFormVisible" :show-close=false>
+  <el-dialog title="会计科目" :model-value="dialogFormVisible" :show-close=false width="15%">
     <el-form :model="form">
       <el-form-item label="科目名称">
         <el-input v-model="form.subName" :clearable="true" autocomplete="off"></el-input>
@@ -64,20 +64,20 @@ export default {
     editSub(param) {
       if (param.id == undefined) {
         saveSubject(param).then((response) => {
-          if (response.data.code == 500) {
+          if (response.data.code != 200) {
             this.$message.error(response.data.msg);
           }
           this.$message.success("新增成功")
         })
       } else {
         editSubject(param).then((response) => {
-          if (response.data.code == 500) {
+          if (response.data.code != 200) {
             this.$message.error(response.data.msg);
           }
           this.$message.success("修改成功")
         })
       }
-      this.$emit('changeDialog')
+      this.$emit('closeDialog')
       location.reload()
     },
     // 编辑
@@ -96,7 +96,7 @@ export default {
       this.form.isEnable = 0
       this.form.direction = 1
       // 父级传递
-      this.$emit('changeDialog')
+      this.$emit('closeDialog')
     },
   }
 };

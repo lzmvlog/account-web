@@ -24,3 +24,8 @@ export function getOne(id) {
 export function editSubject(param) {
     return axios.post("/sub/updateSub", param)
 }
+
+// disable 禁用
+export function disable(id) {
+    return axios.get("/sub/disable/" + id)
+}

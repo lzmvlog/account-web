@@ -1,7 +1,7 @@
 <template>
   <el-button type="primary" @click="dialogFormVisible = true" style="margin-bottom: 10px">新增</el-button>
-  <AddSubject :sublist="sublist" :dialogFormVisible="dialogFormVisible" :id="this.form.id"
-              @changeDialog="changeDialog"/>
+  <AddSubject :sublist="sublist" :dialogFormVisible="dialogFormVisible" :id="this.tableData.id"
+              @closeDialog="closeDialog"/>
   <div class="subject">
     <el-table
         :data="tableData"
@@ -33,7 +33,8 @@
               :active-value="0"
               inactive-text="禁用"
               inactive-color="#ff4949"
-              :inactive-value="1">
+              :inactive-value="1"
+              @change="disable(scope.row.id)">
           </el-switch>
         </template>
       </el-table-column>
@@ -57,7 +58,7 @@
 </template>
 
 <script>
-import {getSubList, pageSub} from "@/api/subApi";
+import {disable, getSubList, pageSub} from "@/api/subApi";
 import Page from "@/components/Page";
 import AddSubject from "@/views/sub/AddSubject";
 
@@ -72,13 +73,6 @@ export default {
       currentPage: 1,
       size: 10,
       dialogFormVisible: false,
-      form: {
-        id: '',
-        subName: '',
-        isEnable: 0,
-        direction: 1,
-        parentId: ''
-      },
       sublist: '',
     }
   },
@@ -90,13 +84,13 @@ export default {
   methods: {
     // 编辑行
     editRow(id) {
-      this.form.id = id
+      this.tableData.id = id
       this.dialogFormVisible = true
     },
     // 获取列表
     list() {
       getSubList().then((response) => {
-        if (response.data.code == 500) {
+        if (response.data.code != 200) {
           this.$message.error(response.data.msg);
         }
         this.sublist = response.data.data.subject
@@ -126,8 +120,16 @@ export default {
       location.reload()
     },
     // 关闭弹窗
-    changeDialog() {
+    closeDialog() {
       this.dialogFormVisible = false
+    },
+    disable(id) {
+      disable(id).then((response) => {
+        if (response.data.code != 200) {
+          this.$message.error(response.data.msg);
+        }
+        this.$message.success("操作成功")
+      })
     }
   }
 }

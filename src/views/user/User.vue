@@ -1,6 +1,6 @@
 <template>
-  <el-button type="primary" @click="dialogFormVisible = true" style="margin-bottom: 10px">新增</el-button>
-  <AddUser :dialogFormVisible="dialogFormVisible"/>
+  <el-button type="primary" @click="dialogFormVisible = true" style="margin-bottom: 10px" >新增</el-button>
+  <AddUser :dialogFormVisible="dialogFormVisible" @closeDialog="closeDialog" :id="this.tableData.id"/>
   <div>
     <el-table
         :data="tableData"
@@ -21,7 +21,7 @@
           label="创建时间">
       </el-table-column>
       <el-table-column
-          label="是否启用" >
+          label="是否启用">
         <template v-slot="scope">
           <el-switch
               v-model="scope.row.isEnable"
@@ -90,9 +90,18 @@ export default {
       this.currentPage = page
       this.page(this.currentPage, this.size)
     },
-    updateEnable(id){
+    updateEnable(id) {
       console.log(id)
       console.log(this.tableData.isEnable)
+    },
+    // 编辑行
+    editRow(id) {
+      this.tableData.id = id
+      this.dialogFormVisible = true
+    },
+    // 关闭弹窗
+    closeDialog() {
+      this.dialogFormVisible = false
     }
   },
 
