@@ -1,5 +1,5 @@
 <template>
-  <el-button type="primary" @click="dialogFormVisible = true" style="margin-bottom: 10px" >新增</el-button>
+  <el-button type="primary" @click="dialogFormVisible = true" style="margin-bottom: 10px">新增</el-button>
   <AddUser :dialogFormVisible="dialogFormVisible" @closeDialog="closeDialog" :id="this.tableData.id"/>
   <div>
     <el-table
@@ -31,7 +31,7 @@
               inactive-text="禁用"
               inactive-color="#ff4949"
               :inactive-value="1"
-              @change="updateEnable(scope.row.id)">
+              @change="disable(scope.row.id)">
           </el-switch>
         </template>
       </el-table-column>
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import {getUserPage} from "@/api/userApi";
+import {getUserPage, disable} from "@/api/userApi";
 import Page from "@/components/Page";
 import AddUser from "./AddUser";
 
@@ -90,9 +90,14 @@ export default {
       this.currentPage = page
       this.page(this.currentPage, this.size)
     },
-    updateEnable(id) {
-      console.log(id)
-      console.log(this.tableData.isEnable)
+    disable(id) {
+      disable(id).then((response) => {
+        if (response.data.code != 200) {
+          this.$message.error(response.data.msg);
+          return
+        }
+        this.$message.success("操作成功")
+      })
     },
     // 编辑行
     editRow(id) {

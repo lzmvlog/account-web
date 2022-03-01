@@ -9,3 +9,8 @@ export function getUserPage(current, size) {
 export function register(param){
     return axios.post("/api/register", param)
 }
+
+// disable 禁用
+export function disable(id) {
+    return axios.get("/api/disable/" + id)
+}

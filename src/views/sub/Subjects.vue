@@ -127,6 +127,7 @@ export default {
       disable(id).then((response) => {
         if (response.data.code != 200) {
           this.$message.error(response.data.msg);
+          return
         }
         this.$message.success("操作成功")
       })
