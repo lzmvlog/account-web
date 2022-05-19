@@ -1,9 +1,16 @@
 <template>
-  <el-header>
+  <el-header style="display: flex;justify-content: right">
     <el-dropdown>
-      <el-icon style="right: 15px">
-        <setting/>
-      </el-icon>
+      <el-row class="demo-avatar demo-basic">
+        <el-col :span="12">
+          <div class="demo-basic--circle">
+            <div class="block"><el-avatar :size="50" :src="circleUrl"></el-avatar></div>
+            <div class="block" v-for="size in sizeList" :key="size">
+              <el-avatar :size="size" :src="circleUrl"></el-avatar>
+            </div>
+          </div>
+        </el-col>
+      </el-row>
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item>退出</el-dropdown-item>
@@ -11,7 +18,6 @@
       </template>
     </el-dropdown>
   </el-header>
-
   <el-container style="min-height: 89vh; ">
     <el-aside width="200px">
       <el-menu>
@@ -28,8 +34,8 @@
         </el-sub-menu>
         <el-sub-menu index="2">
           <template #title>
-            <el-icon>
-              <setting/>
+            <el-icon class="el-icon-document">
+              <document/>
             </el-icon>
             账单管理
           </template>
@@ -38,7 +44,6 @@
       </el-menu>
     </el-aside>
 
-    <!--    style="background-color: rgb(238, 241, 246)"-->
     <el-container>
       <el-main>
         <!--        主要显示的内容-->
@@ -51,9 +56,11 @@
 <script>
 import {defineComponent} from 'vue'
 import {Setting} from '@element-plus/icons'
+import {Document} from "@element-plus/icons-vue";
 
 export default defineComponent({
   components: {
+    Document,
     Setting,
   },
   methods: {

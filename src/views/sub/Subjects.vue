@@ -1,5 +1,13 @@
 <template>
-  <el-button type="primary" @click="dialogFormVisible = true" style="margin-bottom: 10px">新增</el-button>
+
+  <div style="display: flex;justify-content: left;margin-bottom: 10px;text-align: center">
+    <sapn style="width: 80px">科目名称</sapn>
+    <el-input placeholder="科目名称" class="input-width"></el-input>
+
+    <el-button type="info" style="margin-left: 10px">搜索</el-button>
+  </div>
+  <el-button type="primary" @click="dialogFormVisible = true" style="margin-bottom: 10px" plain> 新增</el-button>
+
   <AddSubject :sublist="sublist" :dialogFormVisible="dialogFormVisible" :id="this.tableData.id"
               @closeDialog="closeDialog"/>
   <div class="subject">
@@ -30,10 +38,10 @@
               v-model="scope.row.isEnable"
               active-text="启用"
               active-color="#13ce66"
-              :active-value="0"
+              :active-value="1"
               inactive-text="禁用"
               inactive-color="#ff4949"
-              :inactive-value="1"
+              :inactive-value="2"
               @change="disable(scope.row.id)">
           </el-switch>
         </template>
@@ -113,7 +121,7 @@ export default {
       this.page(this.currentPage, this.size)
     },
     direction(row) {
-      return row.direction == 0 ? '借' : '贷'
+      return row.direction == 1 ? '借' : '贷'
     },
     // 重新加载当前页面
     reload() {
@@ -135,3 +143,8 @@ export default {
   }
 }
 </script>
+<style>
+.input-width {
+  width: 200px;
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-  <Add/>
+  <AddBill/>
   <div class="subject">
     <el-table
         :data="tableData"
@@ -22,7 +22,7 @@
       </el-table-column>
       <el-table-column
           prop="amount"
-          label="金额">
+          label="金额(RMB)">
       </el-table-column>
       <el-table-column
           prop="createDate"
@@ -53,9 +53,11 @@
 <script>
 import {pageBill} from "@/api/billApi";
 import Page from "@/components/Page";
+import AddBill from "./AddBill";
 
 export default {
   components: {
+    AddBill,
     Page
   },
   data() {

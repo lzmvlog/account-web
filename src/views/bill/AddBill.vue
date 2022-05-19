@@ -1,15 +1,15 @@
 <template>
   <el-button type="primary" @click="openSave" style="margin-bottom: 10px">新增</el-button>
 
-  <el-dialog title="账单" v-model="dialogFormVisible">
+  <el-dialog title="账单" v-model="dialogFormVisible" width="28%" center>
     <el-form :model="form">
       <el-form-item label="科目名称">
-        <el-select v-model="form.subName" placeholder="请选择" @change="saveSub">
+        <el-select v-model="form.subId" placeholder="请选择">
           <el-option
               v-for="item in sublist"
               :key="item.id"
               :label="item.subName"
-              :value="item">
+              :value="item.id">
           </el-option>
         </el-select>
       </el-form-item>
@@ -17,7 +17,7 @@
         <el-input v-model="form.amount" :clearable="true" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="账单备注">
-        <el-input v-model="form.remark" :clearable="true" autocomplete="off"></el-input>
+        <el-input type="textarea" v-model="form.remark" :clearable="true" autocomplete="off"></el-input>
       </el-form-item>
     </el-form>
     <div>
@@ -60,7 +60,7 @@ export default {
         }
       })
       this.dialogFormVisible = false
-      this.$parent.reload()
+      // this.$parent.reload()
     },
     openSave() {
       this.dialogFormVisible = true

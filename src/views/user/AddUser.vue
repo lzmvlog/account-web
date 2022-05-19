@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="账号管理" :model-value="dialogFormVisible" :show-close=false width="15%">
+  <el-dialog title="账号管理" :model-value="dialogFormVisible" :show-close=false width="15%" center>
     <el-form :model="form">
       <el-form-item label="账号名称">
         <el-input v-model="form.userName" :clearable="true" autocomplete="on"></el-input>
@@ -12,10 +12,10 @@
             v-model="form.isEnable"
             active-text="启用"
             active-color="#13ce66"
-            :active-value="0"
+            :active-value="1"
             inactive-text="禁用"
             inactive-color="#ff4949"
-            :inactive-value="1"
+            :inactive-value="2"
             change="">
         </el-switch>
       </el-form-item>
@@ -38,7 +38,7 @@ export default {
       form: {
         userName: '',
         password: '',
-        isEnable: 0
+        isEnable: 1
       }
     };
   },

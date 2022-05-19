@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="会计科目" :model-value="dialogFormVisible" :show-close=false width="15%">
+  <el-dialog title="会计科目" :model-value="dialogFormVisible" :show-close=false width="35%" center>
     <el-form :model="form">
       <el-form-item label="科目名称">
         <el-input v-model="form.subName" :clearable="true" autocomplete="off"></el-input>
@@ -23,10 +23,10 @@
             v-model="form.isEnable"
             active-text="启用"
             active-color="#13ce66"
-            :active-value="0"
+            :active-value="1"
             inactive-text="禁用"
             inactive-color="#ff4949"
-            :inactive-value="1">
+            :inactive-value="2">
         </el-switch>
       </el-form-item>
     </el-form>
@@ -47,7 +47,7 @@ export default {
     return {
       form: {
         subName: '',
-        isEnable: 0,
+        isEnable: 1,
         direction: 1,
         parentId: '',
       },
@@ -93,7 +93,7 @@ export default {
     cancel() {
       this.form.parentId = null
       this.form.subName = ''
-      this.form.isEnable = 0
+      this.form.isEnable = 1
       this.form.direction = 1
       // 父级传递
       this.$emit('closeDialog')

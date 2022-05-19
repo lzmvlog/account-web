@@ -2,7 +2,7 @@
   <div class="page">
     <el-pagination
         background
-        layout="total, prev, pager, next"
+        layout=" prev, pager, next"
         :total="total"
         :page-size="pageSize">
     </el-pagination>
@@ -15,7 +15,7 @@ export default {
     // 总条数
     total: {
       type: Number,
-      default: 2
+      default: 1
     },
     // 每页显示的条数
     pageSize: {
