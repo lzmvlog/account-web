@@ -29,7 +29,7 @@
 
 <script>
 
-import {register} from "@/api/userApi";
+import {register, getOne, editUser} from "@/api/userApi";
 
 export default {
   props: ['dialogFormVisible', 'id'],
@@ -59,7 +59,13 @@ export default {
           this.$message.success("新增成功")
         })
       } else {
-        console.log(param)
+        editUser(param).then((response) => {
+          if (response.data.code != 200) {
+            this.$message.error(response.data.msg);
+            return
+          }
+          this.$message.success("修改成功")
+        })
       }
       // location.reload()
       // 父级传递
@@ -67,7 +73,9 @@ export default {
 
     },
     getOneUser(id) {
-      console.log(id)
+      getOne(id).then((response) => {
+        this.form = response.data.data.user
+      })
     },
     // 取消按钮
     cancel() {
