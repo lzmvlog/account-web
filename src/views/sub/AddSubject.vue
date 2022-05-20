@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="会计科目" :model-value="dialogFormVisible" :show-close=false width="35%" center>
+  <el-dialog title="会计科目" :model-value="dialogFormVisible" width="35%" center :before-close="cancel">
     <el-form :model="form">
       <el-form-item label="科目名称">
         <el-input v-model="form.subName" :clearable="true" autocomplete="off"></el-input>
@@ -15,10 +15,10 @@
         </el-select>
       </el-form-item>
       <el-form-item label="借贷方向">
-        <el-radio v-model="form.direction" :label="0">借</el-radio>
-        <el-radio v-model="form.direction" :label="1">贷</el-radio>
+        <el-radio v-model="form.direction" :label="1">借</el-radio>
+        <el-radio v-model="form.direction" :label="2">贷</el-radio>
       </el-form-item>
-      <el-form-item >
+      <el-form-item>
         <el-switch
             v-model="form.isEnable"
             active-text="启用"
@@ -30,7 +30,7 @@
         </el-switch>
       </el-form-item>
     </el-form>
-    <div>
+    <div style="display: flex;justify-content: center">
       <el-button @click="cancel">取 消</el-button>
       <el-button type="primary" @click="editSub(form)">确 定</el-button>
     </div>
@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import {getOne, saveSubject} from "@/api/subApi";
-import {editSubject} from "@/api/subApi";
+import {getOne, saveSubject} from "../../api/subApi";
+import {editSubject} from "../../api/subApi";
 
 export default {
   props: ['sublist', 'dialogFormVisible', 'id'],
@@ -56,7 +56,7 @@ export default {
   watch: {
     // 当监听到id 发生变化就获取数据
     id: function (id) {
-      this.getOneSUb(id)
+      this.getOneSub(id)
     }
   },
   methods: {
@@ -81,7 +81,7 @@ export default {
       location.reload()
     },
     // 编辑
-    getOneSUb(id) {
+    getOneSub(id) {
       getOne(id).then((response) => {
         this.form = response.data.data.subject
         if (this.form.parentId == 0) {
@@ -91,6 +91,7 @@ export default {
     },
     // 取消按钮
     cancel() {
+      this.form.id = ''
       this.form.parentId = null
       this.form.subName = ''
       this.form.isEnable = 1

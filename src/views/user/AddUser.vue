@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="账号管理" :model-value="dialogFormVisible" :show-close=false width="15%" center>
+  <el-dialog title="账号管理" :model-value="dialogFormVisible" width="25%" center :before-close="cancel">
     <el-form :model="form">
       <el-form-item label="账号名称">
         <el-input v-model="form.userName" :clearable="true" autocomplete="on"></el-input>
@@ -29,7 +29,7 @@
 
 <script>
 
-import {register, getOne, editUser} from "@/api/userApi";
+import {register, getOne, editUser} from "../../api/userApi";
 
 export default {
   props: ['dialogFormVisible', 'id'],

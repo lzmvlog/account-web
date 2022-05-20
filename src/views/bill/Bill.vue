@@ -1,5 +1,7 @@
 <template>
-  <AddBill/>
+  <el-button type="primary" @click="dialogFormVisible = true" style="margin-bottom: 10px" plain> 新增</el-button>
+  <AddBill :dialogFormVisible="dialogFormVisible" :id="this.tableData.id"
+           @closeDialog="closeDialog"/>
   <div class="subject">
     <el-table
         :data="tableData"
@@ -38,8 +40,8 @@
           width="120">
         <template v-slot="scope">
           <el-button
-              @click="editRow(scope.$index,tableData)"
-              type="text"
+              @click="editRow(scope.row.id)"
+              type="button"
               size="small">
             编辑
           </el-button>
@@ -47,31 +49,46 @@
       </el-table-column>
     </el-table>
   </div>
-  <Page :total="total" :page-size="currentPage"/>
+  <div class="page">
+    <el-pagination
+        background
+        layout=" prev, pager, next"
+        :total="total"
+        :page-size="pageSize"
+        :page-sizes="size"
+        @prev-click="prev"
+        @next-click="next"
+    >
+    </el-pagination>
+  </div>
 </template>
 
 <script>
-import {pageBill} from "@/api/billApi";
-import Page from "@/components/Page";
+import {pageBill} from "../../api/billApi";
 import AddBill from "./AddBill";
 
 export default {
   components: {
     AddBill,
-    Page
   },
   data() {
     return {
       tableData: [],
-      total: 100,
-      currentPage: 1,
+      total: 10,
+      pageSize: 1,
       size: 10,
+      dialogFormVisible: false,
     }
   },
   created() {
-    this.page(this.currentPage, this.size)
+    this.page(this.pageSize, this.size)
   },
   methods: {
+    // 编辑行
+    editRow(id) {
+      this.tableData.id = id
+      this.dialogFormVisible = true
+    },
     page(current, size) {
       pageBill(current, size).then(response => {
         if (response.data.code == 500) {
@@ -88,18 +105,21 @@ export default {
       this.page(this.currentPage, this.size)
     },
     direction(row) {
-      return row.direction == 0 ? '借' : '贷'
+      return row.direction == 1 ? '收入' : '支出'
     },
     reload() {
       location.reload()
     },
+    // 关闭弹窗
+    closeDialog() {
+      this.dialogFormVisible = false
+    },
+    prev(pageSize) {
+      this.page(pageSize - 1, this.size)
+    },
+    next(pageSize) {
+      this.page(pageSize + 1, this.size)
+    },
   },
 }
 </script>
-
-<style>
-.page {
-  text-align: center;
-  margin-top: 10px;
-}
-</style>

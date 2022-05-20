@@ -1,12 +1,12 @@
 <template>
 
   <div style="display: flex;justify-content: left;margin-bottom: 10px;text-align: center">
-    <sapn style="width: 80px">科目名称</sapn>
+    <sapn style="width: 80px;margin-top: 5px">科目名称</sapn>
     <el-input placeholder="科目名称" class="input-width"></el-input>
 
     <el-button type="info" style="margin-left: 10px">搜索</el-button>
   </div>
-  <el-button type="primary" @click="dialogFormVisible = true" style="margin-bottom: 10px" plain> 新增</el-button>
+  <el-button type="primary" @click="this.dialogFormVisible = true" style="margin-bottom: 10px" plain> 新增</el-button>
 
   <AddSubject :sublist="sublist" :dialogFormVisible="dialogFormVisible" :id="this.tableData.id"
               @closeDialog="closeDialog"/>
@@ -14,7 +14,7 @@
     <el-table
         :data="tableData"
         border
-        style="width: 100%"
+        style="width: 100%;"
         max-height="89vh">
       <el-table-column
           fixed
@@ -53,7 +53,7 @@
         <template v-slot="scope">
           <el-button
               @click="editRow(scope.row.id)"
-              type="text"
+              type="button"
               size="small">
             编辑
           </el-button>
@@ -62,23 +62,33 @@
     </el-table>
   </div>
 
-  <Page :total="total" :page-size="currentPage"/>
+  <div class="page">
+    <el-pagination
+        background
+        layout=" prev, pager, next"
+        :total="total"
+        :page-size="pageSize"
+        :page-sizes="size"
+        @prev-click="prev"
+        @next-click="next"
+    >
+    </el-pagination>
+  </div>
 </template>
 
 <script>
-import {disable, getSubList, pageSub} from "@/api/subApi";
-import Page from "@/components/Page";
+import {disable, getSubList, pageSub} from "../../api/subApi";
 import AddSubject from "@/views/sub/AddSubject";
 
 export default {
-  components: {Page, AddSubject},
+  components: { AddSubject},
   data() {
     return {
       tableData: [],
       data: [],
       meg: false,
       total: 100,
-      currentPage: 1,
+      pageSize: 1,
       size: 10,
       dialogFormVisible: false,
       sublist: '',
@@ -87,7 +97,7 @@ export default {
   // 生命周期函数
   created() {
     this.list()
-    this.getpage(this.currentPage, this.size)
+    this.getpage(this.pageSize, this.size)
   },
   methods: {
     // 编辑行
@@ -139,7 +149,17 @@ export default {
         }
         this.$message.success("操作成功")
       })
-    }
+    },
+    prev(pageSize) {
+      alert(pageSize)
+      this.pageSize = pageSize - 1
+      this.getpage(pageSize, this.size)
+    },
+    next(pageSize) {
+      alert(pageSize)
+      this.pageSize = pageSize + 1
+      this.getpage(pageSize + 1, this.size)
+    },
   }
 }
 </script>

@@ -10,5 +10,9 @@
 .cell{
   text-align: center;
 }
+.page {
+  display: flex;
+  justify-content: center;
+}
 </style>
 

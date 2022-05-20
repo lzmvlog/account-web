@@ -3,7 +3,6 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import App from './App.vue'
 import router from './router'
-import echarts from 'echarts'
 
 const app = createApp(App).use(router)
 
@@ -34,5 +33,3 @@ axios.interceptors.request.use(function (config) {
 
 app.use(ElementPlus)
 app.mount('#app')
-App.prototype.$echarts = echarts
-

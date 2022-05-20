@@ -10,7 +10,17 @@ export function saveBill(param) {
     return axios.post("/bill/saveBill", param)
 }
 
-// page 分页获取列表
+// pageBill 分页获取列表
 export function pageBill(current, size) {
     return axios.get("/bill/pageBill?page=" + current + "&size=" + size)
+}
+
+// getOne 获取单个账单信息
+export function getOne(id) {
+    return axios.get("/bill/findOneBill?id="+ id)
+}
+
+// updateBill 更新账单信息
+export function updateBill(param) {
+    return axios.post("/bill/updateBill", param)
 }

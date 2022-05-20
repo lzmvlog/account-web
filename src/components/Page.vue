@@ -4,7 +4,8 @@
         background
         layout=" prev, pager, next"
         :total="total"
-        :page-size="pageSize">
+        :page-size="pageSize"
+    >
     </el-pagination>
   </div>
 </template>
@@ -22,7 +23,7 @@ export default {
       type: Number,
       default: 10
     }
-  }
+  },
 }
 </script>
 

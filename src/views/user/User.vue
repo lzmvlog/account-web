@@ -42,7 +42,7 @@
         <template v-slot="scope">
           <el-button
               @click="editRow(scope.row.id)"
-              type="text"
+              type="button"
               size="small">
             编辑
           </el-button>
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import {getUserPage, disable} from "@/api/userApi";
+import {getUserPage, disable} from "../../api/userApi";
 import Page from "@/components/Page";
 import AddUser from "./AddUser";
 
