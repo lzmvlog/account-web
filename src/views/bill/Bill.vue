@@ -58,6 +58,7 @@
         :page-sizes="size"
         @prev-click="prev"
         @next-click="next"
+        @current-change="currentChange"
     >
     </el-pagination>
   </div>
@@ -81,7 +82,7 @@ export default {
     }
   },
   created() {
-    this.page(this.pageSize, this.size)
+    this.getPage(this.pageSize, this.size)
   },
   methods: {
     // 编辑行
@@ -89,20 +90,15 @@ export default {
       this.tableData.id = id
       this.dialogFormVisible = true
     },
-    page(current, size) {
+    getPage(current, size) {
       pageBill(current, size).then(response => {
         if (response.data.code == 500) {
           this.$message.error(response.data.msg);
         }
         this.tableData = response.data.data.page.dataList
         this.total = response.data.data.page.count
-        this.currentPage = response.data.data.page.size
+        this.pageSize = response.data.data.page.size
       })
-    },
-    getPage(page) {
-      this.tableData = []
-      this.currentPage = page
-      this.page(this.currentPage, this.size)
     },
     direction(row) {
       return row.direction == 1 ? '收入' : '支出'
@@ -115,11 +111,14 @@ export default {
       this.dialogFormVisible = false
     },
     prev(pageSize) {
-      this.page(pageSize - 1, this.size)
+      this.getPage(pageSize, this.size)
     },
     next(pageSize) {
-      this.page(pageSize + 1, this.size)
+      this.getPage(pageSize , this.size)
     },
+    currentChange(pageSize){
+      this.getPage(pageSize , this.size)
+    }
   },
 }
 </script>

@@ -4,7 +4,9 @@
       <el-row class="demo-avatar demo-basic">
         <el-col :span="12">
           <div class="demo-basic--circle">
-            <div class="block"><el-avatar :size="50" :src="circleUrl"></el-avatar></div>
+            <div class="block">
+              <el-avatar :size="50" :src="circleUrl"></el-avatar>
+            </div>
             <div class="block" v-for="size in sizeList" :key="size">
               <el-avatar :size="size" :src="circleUrl"></el-avatar>
             </div>
@@ -13,7 +15,7 @@
       </el-row>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item>退出</el-dropdown-item>
+          <el-dropdown-item @click="out()">退出</el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
@@ -71,11 +73,15 @@ export default defineComponent({
     subject() {
       this.$router.push('/sub')
     },
-    bill(){
+    bill() {
       this.$router.push('/bill')
     },
-    user(){
+    user() {
       this.$router.push('/user')
+    },
+    out() {
+      this.home()
+      localStorage.clear()
     }
   }
 })

@@ -27,10 +27,10 @@
               v-model="scope.row.isEnable"
               active-text="启用"
               active-color="#13ce66"
-              :active-value="0"
+              :active-value="1"
               inactive-text="禁用"
               inactive-color="#ff4949"
-              :inactive-value="1"
+              :inactive-value="2"
               @change="disable(scope.row.id)">
           </el-switch>
         </template>
@@ -50,16 +50,27 @@
       </el-table-column>
     </el-table>
   </div>
-  <Page :total="total" :page-size="currentPage"/>
+  <div class="page">
+    <el-pagination
+        background
+        layout=" prev, pager, next"
+        :total="total"
+        :page-size="pageSize"
+        :page-sizes="size"
+        @prev-click="prev"
+        @next-click="next"
+        @current-change="currentChange"
+    >
+    </el-pagination>
+  </div>
 </template>
 
 <script>
 import {getUserPage, disable} from "../../api/userApi";
-import Page from "@/components/Page";
 import AddUser from "./AddUser";
 
 export default {
-  components: {Page, AddUser},
+  components: {AddUser},
   data() {
     return {
       dialogFormVisible: false,
@@ -67,28 +78,23 @@ export default {
       data: [],
       meg: false,
       total: 100,
-      currentPage: 1,
+      pageSize: 1,
       size: 10,
     }
   },
   created() {
-    this.getUserPages(this.currentPage, this.size)
+    this.getPage(this.pageSize, this.size)
   },
   methods: {
-    getUserPages(current, size) {
+    getPage(current, size) {
       getUserPage(current, size).then((response) => {
         if (response.data.code == 500) {
           this.$message.error(response.data.msg);
         }
         this.tableData = response.data.data.page.dataList
         this.total = response.data.data.page.count
-        this.currentPage = response.data.data.page.size
+        this.pageSize = response.data.data.page.size
       })
-    },
-    getPage(page) {
-      this.tableData = []
-      this.currentPage = page
-      this.page(this.currentPage, this.size)
     },
     disable(id) {
       disable(id).then((response) => {
@@ -107,6 +113,15 @@ export default {
     // 关闭弹窗
     closeDialog() {
       this.dialogFormVisible = false
+    },
+    prev(pageSize) {
+      this.getPage(pageSize, this.size)
+    },
+    next(pageSize) {
+      this.getPage(pageSize , this.size)
+    },
+    currentChange(pageSize){
+      this.getPage(pageSize , this.size)
     }
   },
 
