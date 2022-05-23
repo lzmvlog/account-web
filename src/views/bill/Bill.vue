@@ -106,7 +106,7 @@ export default {
     reload() {
       location.reload()
     },
-    // 关闭弹窗
+// 关闭弹窗
     closeDialog() {
       this.dialogFormVisible = false
     },
@@ -114,10 +114,10 @@ export default {
       this.getPage(pageSize, this.size)
     },
     next(pageSize) {
-      this.getPage(pageSize , this.size)
+      this.getPage(pageSize, this.size)
     },
-    currentChange(pageSize){
-      this.getPage(pageSize , this.size)
+    currentChange(pageSize) {
+      this.getPage(pageSize, this.size)
     }
   },
 }

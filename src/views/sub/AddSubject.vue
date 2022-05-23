@@ -66,13 +66,16 @@ export default {
         saveSubject(param).then((response) => {
           if (response.data.code != 200) {
             this.$message.error(response.data.msg);
+            return
           }
           this.$message.success("新增成功")
+
         })
       } else {
         editSubject(param).then((response) => {
           if (response.data.code != 200) {
             this.$message.error(response.data.msg);
+            return
           }
           this.$message.success("修改成功")
         })
