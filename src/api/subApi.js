@@ -11,8 +11,8 @@ export function saveSubject(param) {
 }
 
 // page 分页获取列表
-export function pageSub(current, size) {
-    return axios.get("/sub/pageSub?page=" + current + "&size=" + size)
+export function pageSub(current, size, subName) {
+    return axios.get("/sub/pageSub?page=" + current + "&size=" + size + "&subName=" + subName)
 }
 
 // 根据id获取科目

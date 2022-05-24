@@ -2,9 +2,9 @@
 
   <div style="display: flex;justify-content: left;margin-bottom: 10px;text-align: center">
     <sapn style="width: 80px;margin-top: 5px">科目名称</sapn>
-    <el-input placeholder="科目名称" class="input-width"></el-input>
+    <el-input placeholder="科目名称" v-model="subName" class="input-width"></el-input>
 
-    <el-button type="info" style="margin-left: 10px">搜索</el-button>
+    <el-button type="info" style="margin-left: 10px" @click="getPage(1,10)">搜索</el-button>
   </div>
   <el-button type="primary" @click="this.dialogFormVisible = true" style="margin-bottom: 10px" plain> 新增</el-button>
 
@@ -82,7 +82,7 @@ import {disable, getSubList, pageSub} from "../../api/subApi";
 import AddSubject from "@/views/sub/AddSubject";
 
 export default {
-  components: { AddSubject},
+  components: {AddSubject},
   data() {
     return {
       tableData: [],
@@ -93,6 +93,7 @@ export default {
       size: 10,
       dialogFormVisible: false,
       sublist: '',
+      subName: '',
     }
   },
   // 生命周期函数
@@ -117,7 +118,7 @@ export default {
     },
     // 分页插叙
     getPage(current, size) {
-      pageSub(current, size).then((response) => {
+      pageSub(current, size, this.subName).then((response) => {
         if (response.data.code == 500) {
           this.$message.error(response.data.msg);
         }
@@ -150,10 +151,10 @@ export default {
       this.getPage(pageSize, this.size)
     },
     next(pageSize) {
-      this.getPage(pageSize , this.size)
+      this.getPage(pageSize, this.size)
     },
-    currentChange(pageSize){
-      this.getPage(pageSize , this.size)
+    currentChange(pageSize) {
+      this.getPage(pageSize, this.size)
     }
   }
 }
