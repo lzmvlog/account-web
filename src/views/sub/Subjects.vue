@@ -67,8 +67,8 @@
         background
         layout=" prev, pager, next"
         :total="total"
-        :page-size="pageSize"
-        :page-sizes="size"
+        :page-size="size"
+        :current-page="pageSize"
         @prev-click="prev"
         @next-click="next"
         @current-change="currentChange"
@@ -122,9 +122,10 @@ export default {
         if (response.data.code == 500) {
           this.$message.error(response.data.msg);
         }
-        this.tableData = response.data.data.page.dataList
-        this.total = response.data.data.page.count
-        this.pageSize = response.data.data.page.size
+        this.tableData = response.data.data.records
+        this.total = response.data.data.total
+        this.pageSize = response.data.data.current
+        this.size = response.data.data.size
       })
     },
     direction(row) {
