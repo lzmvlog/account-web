@@ -113,7 +113,7 @@ export default {
         if (response.data.code != 200) {
           this.$message.error(response.data.msg);
         }
-        this.sublist = response.data.data.subject
+        this.sublist = response.data.data
       })
     },
     // 分页插叙

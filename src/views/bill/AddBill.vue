@@ -89,7 +89,7 @@ export default {
         if (response.data.code == 500) {
           this.$message.error(response.data.msg);
         }
-        this.sublist = response.data.data.subject
+        this.sublist = response.data.data
       })
     },
     getOneBill(id) {

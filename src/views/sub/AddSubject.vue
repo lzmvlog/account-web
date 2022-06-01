@@ -86,7 +86,7 @@ export default {
     // 编辑
     getOneSub(id) {
       getOne(id).then((response) => {
-        this.form = response.data.data.subject
+        this.form = response.data.data
         if (this.form.parentId == 0) {
           this.form.parentId = null
         }

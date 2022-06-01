@@ -74,7 +74,7 @@ export default {
     },
     getOneUser(id) {
       getOne(id).then((response) => {
-        this.form = response.data.data.user
+        this.form = response.data.data
       })
     },
     // 取消按钮

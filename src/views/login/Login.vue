@@ -30,8 +30,8 @@ export default {
     submitForm(data) {
       login(data).then(response => {
         if (response.data.code == 200) {
-          localStorage.setItem("token", response.data.data.token)
-          this.$message.success(response.data.msg);
+          localStorage.setItem("token", response.data.data)
+          this.$message.success("登录成功");
           this.$router.push('/home')
         }
         if (response.data.code == 500) {
